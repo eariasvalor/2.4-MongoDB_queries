@@ -4,7 +4,7 @@ out/
 !**/src/test/**/out/
 2.4-MongoDB_queries.iml
 .idea
-
+*.iml
 
 ### Eclipse ###
 .apt_generated
