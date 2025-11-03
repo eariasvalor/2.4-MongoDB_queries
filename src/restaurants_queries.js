@@ -16,6 +16,18 @@ db.restaurants.find({name:{$regex:/ces$/}},{restaurant_id:1,name:1,borough:1,cui
 db.restaurants.find({name:{$regex:/Reg/}},{restaurant_id:1,name:1,borough:1,cuisine:1,_id:0});
 db.restaurants.find({borough:"Bronx",$or:[{cuisine:"American"},{cuisine:"Chinese"}]});
 db.restaurants.find({$or:[{borough:"Staten Island"},{borough:"Queens"},{borough:"Bronx"},{borough:"Brooklyn"}]},{restaurant_id:1,name:1,borough:1,cuisine:1,_id:0});
-db.restaurants.find({$not:[{borough:"Staten Island"},{borough:"Queens"},{borough:"Bronx"},{borough:"Brooklyn"}]},{restaurant_id:1,name:1,borough:1,cuisine:1,_id:0});
-
+db.restaurants.find({$nor:[{borough:"Staten Island"},{borough:"Queens"},{borough:"Bronx"},{borough:"Brooklyn"}]},{restaurant_id:1,name:1,borough:1,cuisine:1,_id:0});
+db.restaurants.find({"grades.score":{$lte:10}},{restaurant_id:1,name:1,borough:1,cuisine:1,_id:0});
+db.restaurants.find({$or:[{cuisine:"Seafood"},{name:{$regex:/^Wil/}}]},{restaurant_id:1,name:1,borough:1,cuisine:1,_id:0});
+db.restaurants.find({grades:{$elemMatch:{grade:"A",score:11,date:ISODate("2014-08-11T00:00:00Z")}}},{restaurant_id:1,name:1,grades:1,_id:0});
+db.restaurants.find({"grades.1.grade":"A","grades.1.score":9,"grades.1.date":ISODate("2014-08-11T00:00:00Z")},{restaurant_id:1,name:1,grades:1,_id:0});
+db.restaurants.find({"address.coord.1":{$gt:42,$lte:52}},{restaurant_id:1,name:1,address:1,_id:0});
+db.restaurants.find().sort({name:1});
+db.restaurants.find().sort({name:-1});
+db.restaurants.find().sort({cuisine:1, borough:-1});
+db.restaurants.find({"address.street":{$exists:false}},{restaurant_id:1,name:1,address:1,_id:0});
+db.restaurants.find({"address.coord":{$type:"double"}},{restaurant_id:1,name:1,"address.coord":1,_id:0});
+db.restaurants.find({"grades.score":{$mod:[7,0]}},{restaurant_id:1,name:1,"grades.score":1,_id:0});
+db.restaurants.find({name:{$regex:/mon/i}},{name:1,borough:1,"address.coord":1,cuisine:1,_id:0});
+db.restaurants.find({name:{$regex:/^Mad/}},{name:1,borough:1,"address.coord":1,cuisine:1,_id:0});
 
